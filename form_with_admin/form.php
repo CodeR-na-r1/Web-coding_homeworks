@@ -34,18 +34,18 @@
 		if (!$data_errors) {
 			$contents = '';
 			# id + fix_filename + save_to_end_row
+      $contents .= uniqid() . $separator;
 			$contents .= $name . $separator;
 			$contents .= $company . $separator;
 			$contents .= $city . $separator;
+      $contents .= date('Y-m-d_H-i-s') . $separator;
 			$contents .= ($confirm ? '1' : '0') . $separator . "\n";
-
-			$filename = date('Y-m-d_H-i-s') . '-' . uniqid() . '.txt';
 
 			if (!file_exists($name_data_folder)) {
 				mkdir($name_data_folder, 0777);
 			}
 
-			file_put_contents($name_data_folder . '/' . $filename, $contents);
+			file_put_contents($name_data_folder . '/' . $filename, $contents, FILE_APPEND | LOCK_EX);
 
 			header('Location: /form.php?ok=1');
 			exit;
