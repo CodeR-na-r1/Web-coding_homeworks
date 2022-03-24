@@ -60,8 +60,8 @@
 			$contents .= $phone . $separator; // phone
 			$contents .= $topic . $separator; // topic
 			$contents .= $payment . $separator; // payment
-      $contents .= date('Y-m-d_H-i-s') . $separator; // date
-			$contents .= ($confirm ? '1' : '0') . $separator . "\n"; // confirm
+      $contents .= time() . $separator; // date
+			$contents .= ($confirm ? '1' : '0') . "\n"; // confirm
 
       if (!file_exists($name_data_folder)) {
 				mkdir($name_data_folder, 0777);   // имя и права в 8-ой сист. счисления

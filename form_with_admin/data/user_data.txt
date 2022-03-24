@@ -1,2 +1,6 @@
-623bce72c7226||Vlados||Sizykh||sizyh@gmail.com||89149167070||Technology||Credit card||2022-03-24_01-50-42||0||
-623bcec08e528||Sergey||Ford||Frod2@mail.ru||606060||business||Yandex money||2022-03-24_01-52-00||1||
+623c1b18010bc||Илья||Сидоров||sidorov@mail.ru||549900||business||Yandex money||1648106264||1
+623c1b6394087||Iavn||Spanch||Ivan_ivan123@gmail.com||89145004389||Technology||PayPal||1648106339||0
+623c1bfa543a3||Ivan||Grinkov||ivangrinkoV@mail.ru||789123||Advertising and Marketing||WebMoney||1648106490||1
+623c1c19bc96c||Fedor||Ivanov||fedor@yandex.ru||890123||Technology||Yandex money||1648106521||1
+623c1c55e4a42||Василий||Матросов||vasya@russia.ru||123890||business||WebMoney||1648106581||0
+623c1ceed4189||Boris||Murov||murov.pochta@pochta.ru||134567||business||Yandex money||1648106734||1
