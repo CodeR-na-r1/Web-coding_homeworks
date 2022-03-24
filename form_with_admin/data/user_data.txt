@@ -4,3 +4,4 @@
 623c1c19bc96c||Fedor||Ivanov||fedor@yandex.ru||890123||Technology||Yandex money||1648106521||1
 623c1c55e4a42||Василий||Матросов||vasya@russia.ru||123890||business||WebMoney||1648106581||0
 623c1ceed4189||Boris||Murov||murov.pochta@pochta.ru||134567||business||Yandex money||1648106734||1
+623c1e87c47c5||<b>HACKER</b>||<b>ru</b>||=sabr@pocta||1431432535||Technology||PayPal||1648107143||1

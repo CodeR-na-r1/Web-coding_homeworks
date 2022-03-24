@@ -112,7 +112,7 @@
 			<select name="topic">
 				<?php
 					foreach ($topics as $topic) {
-						echo '<option' . (strcmp($topic, $_POST['topic']) ? '' : ' selected') . '>' . $topic . '	</option>';
+						echo '<option' . (strcmp($topic, ($_POST['topic'] ?? '')) ? '' : ' selected') . '>' . $topic . '	</option>';
 					}
 				 ?>
 			</select>
@@ -121,7 +121,7 @@
       <select name="payment">
         <?php
           foreach ($payment_methods as $payment) {
-            echo '<option' . (strcmp($payment, $_POST['payment']) ? '' : ' selected') . '>' . $payment . '	</option>';
+            echo '<option' . (strcmp($payment, ($_POST['payment'] ?? '')) ? '' : ' selected') . '>' . $payment . '	</option>';
           }
          ?>
       </select>
