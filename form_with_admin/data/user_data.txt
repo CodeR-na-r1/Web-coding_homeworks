@@ -1,2 +1,2 @@
-623b216e3177a||name||comp||Ulan Ude||2022-03-23_13-32-30||0||
-623b21afc68af||main_frane||server_hught||Angarsk||2022-03-23_13-33-35||1||
+623bce72c7226||Vlados||Sizykh||sizyh@gmail.com||89149167070||Technology||Credit card||2022-03-24_01-50-42||0||
+623bcec08e528||Sergey||Ford||Frod2@mail.ru||606060||business||Yandex money||2022-03-24_01-52-00||1||

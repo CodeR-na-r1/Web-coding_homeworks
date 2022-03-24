@@ -12,6 +12,6 @@
     <title>Страница админа</title>
   </head>
   <body>
-
+    
   </body>
 </html>

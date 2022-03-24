@@ -10,15 +10,19 @@
 
 	include 'config.php';
 
-	$cities = ['Irkutsk', 'Angarsk', 'Shelekhov', 'Bratsk', 'Ulan Ude'];
+	$topics = ['business', 'Technology', 'Advertising and Marketing'];
+  $payment_methods = ['WebMoney', 'Yandex money', 'PayPal', 'Credit card'];
 
 	if ($_POST)		// Восстановление данных в форме при обновлении страницы
 	{
 		$data_errors = [];
 
 		$name = $_POST['name'] ?? null;
-		$company = $_POST['company'] ?? null;
-		$city = $_POST['city'] ?? null;
+    $family = $_POST['family'] ?? null;
+    $email = $_POST['email'] ?? null;
+    $phone = $_POST['phone'] ?? null;
+		$topic = $_POST['topic'] ?? null;
+		$payment = $_POST['payment'] ?? null;
 
 		$confirm = (bool)($_POST['confirm'] ?? 0);
 
@@ -26,23 +30,41 @@
 		{
 			$data_errors[] = 'Name is required';
 		}
-		if (!$company)
+		if (!$family)
 		{
-			$data_errors[] = 'Company is required';
+			$data_errors[] = 'Family is required';
+		}
+		if (!$email)
+		{
+			$data_errors[] = 'Email is required';
+		}
+		if (!$phone)
+		{
+			$data_errors[] = 'Phone is required';
+		}
+		if (!$topic)
+		{
+			$data_errors[] = 'Topic is required';
+		}
+		if (!$payment)
+		{
+			$data_errors[] = 'Payment method is required';
 		}
 
-		if (!$data_errors) {
+		if (!$data_errors) {  // При отсутствии ошибок,формируем данные и пихаем в файл
 			$contents = '';
-			# id + fix_filename + save_to_end_row
-      $contents .= uniqid() . $separator;
-			$contents .= $name . $separator;
-			$contents .= $company . $separator;
-			$contents .= $city . $separator;
-      $contents .= date('Y-m-d_H-i-s') . $separator;
-			$contents .= ($confirm ? '1' : '0') . $separator . "\n";
+      $contents .= uniqid() . $separator; // id
+			$contents .= $name . $separator; // name
+			$contents .= $family . $separator; // family
+			$contents .= $email . $separator; // email
+			$contents .= $phone . $separator; // phone
+			$contents .= $topic . $separator; // topic
+			$contents .= $payment . $separator; // payment
+      $contents .= date('Y-m-d_H-i-s') . $separator; // date
+			$contents .= ($confirm ? '1' : '0') . $separator . "\n"; // confirm
 
-			if (!file_exists($name_data_folder)) {
-				mkdir($name_data_folder, 0777);
+      if (!file_exists($name_data_folder)) {
+				mkdir($name_data_folder, 0777);   // имя и права в 8-ой сист. счисления
 			}
 
 			file_put_contents($name_data_folder . '/' . $filename, $contents, FILE_APPEND | LOCK_EX);
@@ -77,25 +99,40 @@
 			<label>Name:</label>
 			<input type="text" name="name" value="<?= __clear($_POST['name'] ?? '') ?>">
 			<br>
-			<label>Company:</label>
-			<input type="text" name="company" value="<?= __clear($_POST['company'] ?? '') ?>">
-			<br>
-			<label>City:</label>
-			<select name="city">
+  		<label>Family:</label>
+  		<input type="text" name="family" value="<?= __clear($_POST['family'] ?? '') ?>">
+  		<br>
+      <label>Email:</label>
+      <input type="email" name="email" value="<?= __clear($_POST['email'] ?? '') ?>">
+      <br>
+      <label>Phone:</label>
+      <input type="number" name="phone" value="<?= __clear($_POST['phone'] ?? '') ?>">
+      <br>
+			<label>Topic:</label>
+			<select name="topic">
 				<?php
-					foreach ($cities as $city) {
-						echo '<option' . (strcmp($city, $_POST['city']) ? '' : ' selected') . '>' . $city . '	</option>';
+					foreach ($topics as $topic) {
+						echo '<option' . (strcmp($topic, $_POST['topic']) ? '' : ' selected') . '>' . $topic . '	</option>';
 					}
 				 ?>
 			</select>
 			<br>
+      <label>Payment method:</label>
+      <select name="payment">
+        <?php
+          foreach ($payment_methods as $payment) {
+            echo '<option' . (strcmp($payment, $_POST['payment']) ? '' : ' selected') . '>' . $payment . '	</option>';
+          }
+         ?>
+      </select>
+      <br>
 			<label>
 				<input type="hidden" name="confirm" value="">
 				<input type="checkbox" name="confirm" value="yes">
-				Confirm
+				Receive conference newsletter
 			</label>
 			<br>
-			<button type="submit">submit</button>
+			<button type="submit">Submit</button>
 		</form>
 	</div>
 
