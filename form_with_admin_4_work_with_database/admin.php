@@ -1,33 +1,20 @@
 <?php
   include 'Form_interaction.php';
 
-  function __clear($value='')
-  {
-  	return htmlspecialchars($value);
-  }
+  include 'functions.php';
 
   if (isset($_POST['selected_id'])) {   // Здесь обработка запроса на удаление записей
-    $contents = Form_interaction::load_all();
-    $content_rows = explode("\n", $contents);
-
-    for ($i=0; $i < count($_POST['selected_id']); $i++) {
-      foreach ($content_rows as $key => $data) {
-        if ( strcmp($_POST['selected_id'][$i], explode(Form_interaction::$separator, $data)[0]) == 0) {
-          //array_splice($content_rows, $key, 1);
-          $edit_data = explode(Form_interaction::$separator, $data);
-          $edit_data[10] = 0;
-          $content_rows[$key] = implode(Form_interaction::$separator, $edit_data);
-          break;
-        }
-      }
+    foreach ($_POST['selected_id'] as $key => $value) {
+      $query = "UPDATE `participants` SET `is_deleted` = '1' WHERE id=:id LIMIT 1;";
+      Database::exec($query, array(':id' => $value));
     }
-
-    Form_interaction::save_all(implode("\n", $content_rows));
   }
 
   // Считываем данные с файла
   $data = Form_interaction::load_all(); // return string
-  $rows = explode("\n", $data);  //  return array из string
+
+  $data_subjects = Database::exec("select name FROM `subjects`");
+  $data_payments = Database::exec("select name FROM `payments`");
 ?>
 
 <!DOCTYPE html>
@@ -57,21 +44,19 @@
 
         <tbody>
         <!-- Данные -->
-          <?php foreach ($rows as $row): ?>
-            <?php $data_row = explode(Form_interaction::$separator, trim($row)) ?>  <!-- Если нет нашего разделителя в данных, то функция вернет массив из одного элемента (ниже проверка) -->
-            <?php if (count($data_row) != 11) {continue;} ?>  <!-- Проверка на наличие и корректное количество вхождений нашего разделителя. -->
-            <?php if ($data_row[10] == '0') {continue;} ?>  <!-- Проверка статуса заявки (метки о том, что она удалена) -->
+          <?php foreach ($data as $row): ?>
+            <?php if ($row[10] == '1') {continue;} ?>  <!-- Проверка статуса заявки (метки о том, что она удалена) -->
             <tr>
-              <td><input type="checkbox" name="selected_id[]" value="<?= __clear($data_row[0]); ?>"></td>  <!-- id -->
-              <td><?= __clear(date('d.m.y H.i', $data_row[7])); ?></td>  <!-- Date -->
-              <td><?= __clear($data_row[1]); ?></td>  <!-- Name -->
-              <td><?= __clear($data_row[2]); ?></td>  <!-- Surame -->
-              <td><?= __clear($data_row[4]); ?></td>  <!-- Phone -->
-              <td><?= __clear($data_row[3]); ?></td>  <!-- Email -->
-              <td><?= __clear($data_row[5]); ?></td>  <!-- Topics -->
-              <td><?= __clear($data_row[6]); ?></td>  <!-- Payment method -->
-              <td><?= __clear($data_row[9]); ?></td>  <!-- Client ip -->
-              <td><?= __clear($data_row[8]); ?></td>  <!-- Confirm -->
+              <td><input type="checkbox" name="selected_id[]" value="<?= __clear($row[0]); ?>"></td>  <!-- id -->
+              <td><?= __clear($row[7]); ?></td>  <!-- Date -->
+              <td><?= __clear($row[1]); ?></td>  <!-- Name -->
+              <td><?= __clear($row[2]); ?></td>  <!-- Surame -->
+              <td><?= __clear($row[4]); ?></td>  <!-- Phone -->
+              <td><?= __clear($row[3]); ?></td>  <!-- Email -->
+              <td><?= __clear($data_subjects[$row[5]]['name']); ?></td>  <!-- Subjects -->
+              <td><?= __clear($data_payments[$row[6]]['name']); ?></td>  <!-- Payment method -->
+              <td><?= __clear($row[9]); ?></td>  <!-- Client ip -->
+              <td><?= __clear($row[8]); ?></td>  <!-- Confirm -->
             </tr>
           <?php endforeach; ?>
         </tbody>

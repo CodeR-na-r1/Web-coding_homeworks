@@ -81,13 +81,9 @@ class Form_interaction {
      echo '</ul>';
    }
 
-   public static function save_all(string $data) : int
+   public static function load_all()
    {
-     return file_put_contents(Form_interaction::$name_data_folder . '/' . Form_interaction::$filename, $data);
-   }
-
-   public static function load_all() : string
-   {
-     return file_get_contents(Form_interaction::$name_data_folder . '/' . Form_interaction::$filename);
+     $data = Database::exec("SELECT * FROM `participants`");
+     return $data;
    }
 }

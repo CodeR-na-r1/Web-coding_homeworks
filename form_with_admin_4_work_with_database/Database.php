@@ -17,9 +17,16 @@ class Database
 
   static public function exec($sql, $sql_params=null)
   {
-    $query = static::get_connection()->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    if ($sql_params)
+    {
+      $query = static::get_connection()->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
-    $query->execute($sql_params);
+      $query->execute($sql_params);
+    }
+    else {
+      $query = static::get_connection()->prepare($sql);
+      $query->execute();
+    }
 
     return $query->fetchAll();
   }
