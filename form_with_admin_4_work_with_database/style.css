@@ -1,0 +1,23 @@
+.form_cont
+{
+  width: 400px;
+  padding-left: 10px;
+  border: 1px solid black;
+}
+
+.form_cont > form
+{
+  line-height: 1.7em;
+}
+
+table
+{
+  text-align: center;
+  border-collapse: collapse;
+}
+
+td, th
+{
+  padding: 5px;
+  border: 1px solid black;
+}
