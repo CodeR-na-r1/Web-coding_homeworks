@@ -1,0 +1,59 @@
+CREATE TABLE `subjects` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY(`id`)
+);
+
+INSERT INTO `subjects` (`name`) VALUES
+('Бизнес и коммуникации'), 
+('Технологии'), 
+('Реклама'), 
+('Маркетинг'), 
+('Проектирование');
+
+CREATE TABLE `payments` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY(`id`)
+);
+
+INSERT INTO `payments` (`name`) VALUES
+('WebMoney'),
+('Яндекс.Деньги'),
+('PayPal'),
+('Кредитная карта'),
+('Робокасса');
+
+CREATE TABLE `participants` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `lastname` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `tel` VARCHAR(255) NOT NULL,
+  `subject_id` INT(10) NOT NULL,
+  `payment_id` INT(10) NOT NULL,
+  `date` TIMESTAMP NOT NULL,
+  `confirm` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
+  `client_ip` VARCHAR(255) NOT NULL,
+  `is_deleted` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY(`id`),
+  INDEX `subject_id` (`subject_id`),
+  INDEX `payment_id` (`payment_id`)
+  );
+
+INSERT INTO `participants`
+(name, lastname, email, tel, subject_id, payment_id, date, confirm, client_ip)
+VALUES
+('Vlad', 'Sizykh', 'sizyh06@gmail.com', '666-333', '1', '1', NOW(), '0', '::1'),
+('Ilya', 'Veslov', 'pochta@gmail.com', '686-333', '2', '3', NOW(), '1', '::1'),
+('Max', 'Leonov', 'data06@gmail.com', '668-313', '3', '4', NOW(), '1', '::1'),
+('Leonardo', 'De Kaprio', 'leoo@gmail.com', '634-333', '1', '4', NOW(), '0', '::1'),
+('Nikita', 'Pupkin', 'nEkitos@gmail.com', '676-398', '1', '2', NOW(), '0', '::1'),
+('Ivan', 'Polyak', 'ivanivan@gmail.com', '631-393', '4', '3', NOW(), '1', '::1'),
+('Marya', 'Svetlova', 'marmar@gmail.com', '612-312', '0', '0', NOW(), '0', '::1'),
+('Nastya', 'Brandt', 'natsi@gmail.com', '646-387', '1', '2', NOW(), '1', '::1'),
+('Yana', 'Kringova', 'yaon@gmail.com', '626-334', '4', '2', NOW(), '0', '::1'),
+('Svetlana', 'Sizykh', 'svet@gmail.com', '543-123', '0', '2', NOW(), '1', '::1'),
+('Vika', 'Sizykh', 'ffff@mail.com', '646-755', '1', '2', NOW(), '0', '::1'),
+('Andrey', 'Linov', 'itisall@yandex.ru', '987-313', '0', '0', NOW(), '0', '::1')
+;
