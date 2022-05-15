@@ -4,10 +4,6 @@ include 'Database.php';
 
 class Form_interaction {
 
-  public static $separator = '||';  // разделитель
-  public static $name_data_folder = 'data';
-  public static $filename = 'user_data.txt';
-
   protected $data = null;
 
   protected array $data_errors;
@@ -16,14 +12,14 @@ class Form_interaction {
    {
      $this->data_errors = [];
 
-     $this->data = array(':name' => $data['name'] ?? null,
-      ':lastname' => $data['family'] ?? null,
-      ':email' => $data['email'] ?? null,
-      ':tel' => $data['phone'] ?? null,
-      ':subject_id' => $data['topic'] ?? null,
-      ':payment_id' => $data['payment'] ?? null,
-      ':confirm' => (bool)($data['confirm'] ?? 0) ? 1 : 0,
-      ':client_ip' => $_SERVER['REMOTE_ADDR']
+     $this->data = array(
+      ':topic' => $data['topic'] ?? null,
+      ':type' => $data['type'] ?? null,
+      ':place' => $data['place'] ?? null,
+      ':date' => $data['date'] ?? null,
+      ':time' => $data['time'] ?? null,
+      ':duration' => $data['duration'] ?? null,
+      ':comment' => $data['comment'] ?? null
     );
    }
 
@@ -33,9 +29,9 @@ class Form_interaction {
 
      if ($this->validate())
      {
-       Database::exec("INSERT INTO `participants`
-         (name, lastname, email, tel, subject_id, payment_id, date, confirm, client_ip) VALUES
-         (:name, :lastname, :email, :tel, :subject_id, :payment_id, NOW(), :confirm, :client_ip);"
+       Database::exec("INSERT INTO `tasks`
+         (topic, type, place, date, time, duration, comment) VALUES
+         (:topic, :type, :place, :date, :time, :duration, :comment);"
        , $this->data);
 
         return true;
@@ -49,21 +45,25 @@ class Form_interaction {
 
    private function check_errors() : void
    {
-     if (!$this->data[':name'])
+     if (!$this->data[':topic'])
    	 {
-   		  $this->data_errors[] = 'Name is required';
+   		  $this->data_errors[] = 'Topic is required';
    	  }
-   		if (!$this->data[':lastname'])
+   		if (!$this->data[':type'])
    		{
-   			$this->data_errors[] = 'Family is required';
+   			$this->data_errors[] = 'Type is required';
    		}
-   		if (!$this->data[':email'])
+   		if (!$this->data[':place'])
    		{
-   			$this->data_errors[] = 'Email is required';
+   			$this->data_errors[] = 'Place is required';
    		}
-   		if (!$this->data[':tel'])
+   		if (!$this->data[':date'])
    		{
-   			$this->data_errors[] = 'Phone is required';
+   			$this->data_errors[] = 'Date is required';
+   		}
+   		if (!$this->data[':duration'])
+   		{
+   			$this->data_errors[] = 'Duration is required';
    		}
    }
 
@@ -83,7 +83,9 @@ class Form_interaction {
 
    public static function load_all()
    {
-     $data = Database::exec("SELECT * FROM `participants`");
+     $data = Database::exec("SELECT * FROM `calendar_tasks`");  // + config 
      return $data;
    }
 }
+
+?>

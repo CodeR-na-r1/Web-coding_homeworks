@@ -1,0 +1,59 @@
+.main_cont
+{
+    border: 1px solid black;
+    margin: 20px auto;
+    width: 50%;
+}
+
+.main_cont_header
+{
+    margin-left: 3%;
+}
+
+.task_cont, .list_cont
+{
+    border: 1px solid black;
+    width: 96%;
+    margin: 20px auto;
+    padding-bottom: 2%;
+}
+
+.task_cont_header
+{
+    margin-left: 2%;
+}
+
+.form_cont_field
+{
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.form_cont_label_header
+{
+    display: inline-block;
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 15%;
+    text-align: right;
+}
+
+.form_cont_input_item
+{
+    width: 20%;
+}
+
+.form_cont_input_select
+{
+    width: 13%;
+}
+
+.form_cont_button
+{
+    margin-left: 19%;
+}
+
+.list_cont_header
+{
+    margin-left: 2%;
+}
