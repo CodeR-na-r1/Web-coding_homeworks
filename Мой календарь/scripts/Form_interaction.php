@@ -31,8 +31,8 @@ class Form_interaction {
      if ($this->validate())
      {
        Database::exec("INSERT INTO `tasks`
-         (topic, type, place, date, time, duration, comment) VALUES
-         (:topic, :type, :place, :date, :time, :duration, :comment);"
+         (topic, type, place, date, time, duration, comment, status) VALUES
+         (:topic, :type, :place, :date, :time, :duration, :comment, 1);"
        , $this->data);
 
         return true;

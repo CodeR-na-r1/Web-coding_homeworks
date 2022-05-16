@@ -1,14 +1,15 @@
 <?php
 
-namespace data_arr
-{
-    $types = array(
-        'Дело', 'встреча', 'звонок', 'помощь', 'отдых', 'работа', 'рутина', 'саморазвитие'
-    );
+include_once 'Database.php';
+
+$types = Database::exec("SELECT * FROM `types`");
+
+$durations =  Database::exec("SELECT * FROM `durations`");
     
-    $durations = array(
-        'Менее часа', '1 час', '1-2 часа', '2 часа', '1-3 часа', '3 часа', '4-5 часов', 'более 5 часов', 'Неопределенно'
-    );
-}
+$statuses =  Database::exec("SELECT * FROM `statuses`");
+
+$data_relevance = false;
+
+$data = null;
 
 ?>

@@ -39,6 +39,16 @@ INSERT INTO `durations` (`name`) VALUES
 ('более 5 часов'),
 ('Неопределенно');
 
+CREATE TABLE `statuses` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(30) NOT NULL,
+  PRIMARY KEY(`id`)
+);
+
+INSERT INTO `statuses` (`name`) VALUES
+('Текущая задача'),
+('Выполненная задача');
+
 CREATE TABLE `tasks` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `topic` VARCHAR(255) NOT NULL,
@@ -48,6 +58,7 @@ CREATE TABLE `tasks` (
   `time` VARCHAR(5) NOT NULL,
   `duration` INT(10) NOT NULL,
   `comment` VARCHAR(255) NOT NULL,
+  `status` INT(10) NOT NULL DEFAULT 1,
   PRIMARY KEY(`id`),
   INDEX `type` (`type`),
   INDEX `duration` (`duration`)

@@ -57,3 +57,14 @@
 {
     margin-left: 2%;
 }
+
+.list_cont_menu
+{
+    margin-bottom: 2%;
+}
+
+.list_cont_tasks > table, th, td
+{
+    border: 1px solid black;
+    border-collapse: collapse;
+}

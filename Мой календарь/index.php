@@ -4,15 +4,22 @@ include_once 'scripts/functions.php';
 include_once 'scripts/data_arrays.php';
 include_once 'scripts/Form_interaction.php';
 
-if ($_POST)
+if ($_POST) // Обработка запроса на добавление новой записи
 {
   $My_form = new Form_interaction($_POST, $types, $durations);
 
   if ($My_form->save())
   {
     echo "Добавлено";
+    $_POST = null;
+    $data_relevance = false;
   }
+}
 
+if ($data == null || !$data_relevance)  // Получение данных из БД
+{
+  $data = Form_interaction::load_all();
+  $data_relevance = true;
 }
 
 ?>
@@ -41,7 +48,7 @@ if ($_POST)
               <select class="form_cont_input_select" name="type">
                 <?php
                   foreach ($types as $type) {
-                    echo '<option' . (strcmp($type, ($_POST['type'] ?? '')) ? '' : ' selected') . '>' . $type . '	</option>';
+                    echo '<option' . (strcmp($type["name"], ($_POST['type'] ?? '')) ? '' : ' selected') . '>' . $type["name"] . '	</option>';
                   }
                 ?>
               </select>
@@ -60,7 +67,7 @@ if ($_POST)
               <select class="form_cont_input_select" name="duration">
                 <?php
                   foreach ($durations as $duration) {
-                    echo '<option' . (strcmp($duration, ($_POST['duration'] ?? '')) ? '' : ' selected') . '>' . $duration . '	</option>';
+                    echo '<option' . (strcmp($duration["name"], ($_POST['duration'] ?? '')) ? '' : ' selected') . '>' . $duration["name"] . '	</option>';
                   }
                 ?>
               </select>
@@ -76,6 +83,41 @@ if ($_POST)
       </div>
       <div class="list_cont">
         <h3 class="list_cont_header">Список задач</h3>
+        <div class="list_cont_menu">
+          <select name="sort_by_progress">
+            <option value="nothing_tasks" selected>Все задачи</option>
+            <option value="now_tasks">Текущие задачи</option>
+            <option value="over_tasks">Просроченные задачи</option>
+            <option value="completed_tasks">Выполненные задачи</option>
+          </select>
+          <input type="date" class="sort_by_date">
+          <a href="index.php?name=true">Сегодня</a>
+        </div>
+        <div class="list_cont_tasks">
+          <table>
+            <thead>
+              <tr>
+                <th>Тип</th>
+                <th>Задача</th>
+                <th>Место</th>
+                <th>Дата и время</th>
+                <th>Длительность</th>
+                <th>Комментарий</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php ?>
+              <tr>
+                <td>Тип</td>
+                <td>Задача</td>
+                <td>Место</td>
+                <td>Дата и время</td>
+                <td>Длительность</td>
+                <td>Комментарий</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </body>

@@ -11,7 +11,7 @@ function convert_to_index(string $search_value, array $collection) : int
 
   foreach ($collection as $key => $value)
   {
-    if (strcmp($value, $search_value))
+    if (strcmp($value["name"], $search_value))
     {
       $count += 1;
     }
