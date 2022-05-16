@@ -59,7 +59,7 @@ if ($data == null || !$data_relevance)  // Получение данных из 
             </div>
             <div class="form_cont_field">
               <label class="form_cont_label_header">Дата и время:</label>
-              <input type="date" name="date" value="<?= __clear($_POST['date'] ?? '') ?>">
+              <input type="date" name="date" value="<?= __clear($_POST['date'] ?? '') ?>" class="form_cont_field_input_date">
               <input type="time" name="time" value="<?= __clear($_POST['time'] ?? '') ?>">
             </div>
             <div class="form_cont_field">
@@ -103,18 +103,21 @@ if ($data == null || !$data_relevance)  // Получение данных из 
                 <th>Дата и время</th>
                 <th>Длительность</th>
                 <th>Комментарий</th>
+                <th>Статус</th>
               </tr>
             </thead>
             <tbody>
-              <?php ?>
+              <?php foreach ($data as $key => $value) { ?>
               <tr>
-                <td>Тип</td>
-                <td>Задача</td>
-                <td>Место</td>
-                <td>Дата и время</td>
-                <td>Длительность</td>
-                <td>Комментарий</td>
+                <td><?= __clear($types[$value["type"] - 1]["name"]); ?></td>
+                <td><?= __clear($value["topic"]); ?></td>
+                <td><?= __clear($value["place"]); ?></td>
+                <td><?= __clear($value["date"] . " " . $value["time"]); ?></td>
+                <td><?= __clear($durations[$value["duration"] - 1]["name"]); ?></td>
+                <td><?= __clear($value["comment"]); ?></td>
+                <td><?= __clear($statuses[$value["status"] - 1]["name"]); ?></td>
               </tr>
+              <?php } ?>
             </tbody>
           </table>
         </div>
