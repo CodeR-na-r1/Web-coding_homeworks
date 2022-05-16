@@ -80,6 +80,17 @@ input, select, textarea {
     margin: 0 2% 2% 2%;
 }
 
+.list_cont_menu > input, select, span
+{
+    margin: 0 1% 0 1%;
+}
+
+.list_cont_menu > span
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .list_cont_tasks > table
 {
     margin: 0 auto;

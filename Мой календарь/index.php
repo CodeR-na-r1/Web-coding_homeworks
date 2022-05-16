@@ -84,14 +84,19 @@ if ($data == null || !$data_relevance)  // Получение данных из 
       <div class="list_cont">
         <h3 class="list_cont_header">Список задач</h3>
         <div class="list_cont_menu">
-          <select name="sort_by_progress">
-            <option value="nothing_tasks" selected>Все задачи</option>
-            <option value="now_tasks">Текущие задачи</option>
-            <option value="over_tasks">Просроченные задачи</option>
-            <option value="completed_tasks">Выполненные задачи</option>
+          <span>Фильтры: </span>
+          <select class="element_for_filter" name="sort_by_progress">
+            <option value="nothing" selected>Все задачи</option>
+            <option value="now">Текущие задачи</option>
+            <option value="over">Просроченные задачи</option>
+            <option value="completed">Выполненные задачи</option>
           </select>
-          <input type="date" class="sort_by_date">
-          <a href="index.php?name=true">Сегодня</a>
+          <input class="element_for_filter" type="date" class="sort_by_date">
+          <span class="element_for_filter" value="all">Все</span>
+          <span class="element_for_filter" value="this_week">Эта неделя</span>
+          <span class="element_for_filter" value="next_week">След. неделя</span>
+          <span class="element_for_filter" value="this_month">Этот месяц</span>
+          <span class="element_for_filter" value="next_month">След. месяц</span>
         </div>
         <div class="list_cont_tasks">
           <table>
@@ -123,5 +128,8 @@ if ($data == null || !$data_relevance)  // Получение данных из 
         </div>
       </div>
     </div>
+
+    <script src="script.js"></script>
+
   </body>
 </html>
