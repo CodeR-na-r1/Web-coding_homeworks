@@ -1,6 +1,7 @@
 <?php
 
-include 'Database.php';
+include_once 'Database.php';
+include_once 'functions.php';
 
 class Form_interaction {
 
@@ -8,18 +9,18 @@ class Form_interaction {
 
   protected array $data_errors;
 
-  public function __construct(array $data)
+  public function __construct(array $_data, array $types, array $durations)
    {
      $this->data_errors = [];
 
      $this->data = array(
-      ':topic' => $data['topic'] ?? null,
-      ':type' => $data['type'] ?? null,
-      ':place' => $data['place'] ?? null,
-      ':date' => $data['date'] ?? null,
-      ':time' => $data['time'] ?? null,
-      ':duration' => $data['duration'] ?? null,
-      ':comment' => $data['comment'] ?? null
+      ':topic' => $_data['topic'] ?? null,
+      ':type' =>  convert_to_index($_data['type'], $types),
+      ':place' => $_data['place'] ?? null,
+      ':date' => $_data['date'] ?? null,
+      ':time' => $_data['time'] ?? null,
+      ':duration' => convert_to_index($_data['duration'], $durations),
+      ':comment' => $_data['comment'] ?? null
     );
    }
 
@@ -49,10 +50,6 @@ class Form_interaction {
    	 {
    		  $this->data_errors[] = 'Topic is required';
    	  }
-   		if (!$this->data[':type'])
-   		{
-   			$this->data_errors[] = 'Type is required';
-   		}
    		if (!$this->data[':place'])
    		{
    			$this->data_errors[] = 'Place is required';
@@ -60,10 +57,6 @@ class Form_interaction {
    		if (!$this->data[':date'])
    		{
    			$this->data_errors[] = 'Date is required';
-   		}
-   		if (!$this->data[':duration'])
-   		{
-   			$this->data_errors[] = 'Duration is required';
    		}
    }
 
@@ -83,7 +76,7 @@ class Form_interaction {
 
    public static function load_all()
    {
-     $data = Database::exec("SELECT * FROM `calendar_tasks`");  // + config 
+     $data = Database::exec("SELECT * FROM `tasks`");  // + config 
      return $data;
    }
 }

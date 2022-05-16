@@ -1,13 +1,13 @@
 <?php
 
-include 'scripts/functions.php';
-include 'scripts/data_arrays.php';
-include 'scripts/Form_interaction.php';
+include_once 'scripts/functions.php';
+include_once 'scripts/data_arrays.php';
+include_once 'scripts/Form_interaction.php';
 
 if ($_POST)
 {
-  $My_form = new Form_interaction($_POST);
-  
+  $My_form = new Form_interaction($_POST, $types, $durations);
+
   if ($My_form->save())
   {
     echo "Добавлено";
@@ -67,7 +67,7 @@ if ($_POST)
             </div>
             <div class="form_cont_field">
               <label class="form_cont_label_header">Комментарий:</label>
-              <textarea name="comment" cols="55" rows="7" placeholder="Введите сюда комментарий к новой задаче"></textarea>
+              <textarea name="comment" cols="55" rows="7" placeholder="Введите сюда комментарий к новой задаче"><?= __clear($_POST['comment'] ?? '');?></textarea>
             </div>
 
             <button class="form_cont_button" type="submit">Добавить</button>
