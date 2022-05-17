@@ -105,8 +105,8 @@ if (!$data_relevance)  // Получение данных из БД
               </select>
             </div>
             <div class="form_cont_field">
-              <label class="form_cont_label_header">Комментарий:</label>
-              <textarea name="comment" cols="55" rows="7" placeholder="Введите сюда комментарий к новой задаче"><?= __clear($_POST['comment'] ?? '');?></textarea>
+              <label class="form_cont_label_header">Описание:</label>
+              <textarea name="comment" cols="55" rows="7" placeholder="Введите сюда описание к новой задаче"><?= __clear($_POST['comment'] ?? '');?></textarea>
             </div>
 
             <button class="form_cont_button" type="submit">Добавить</button>
@@ -133,10 +133,10 @@ if (!$data_relevance)  // Получение данных из БД
               <tr>
                 <th>Тип</th>
                 <th>Задача</th>
+                <th>Описание</th>
                 <th>Место</th>
                 <th>Дата и время</th>
                 <th>Длительность</th>
-                <th>Комментарий</th>
                 <th>Статус</th>
               </tr>
             </thead>
@@ -145,10 +145,10 @@ if (!$data_relevance)  // Получение данных из БД
               <tr>
                 <td><?= __clear($types[$value["type"] - 1]["name"]); ?></td>
                 <td><?= __clear($value["topic"]); ?></td>
+                <td><?= __clear($value["comment"]); ?></td>
                 <td><?= __clear($value["place"]); ?></td>
                 <td><?= __clear($value["date"] . " " . $value["time"]); ?></td>
                 <td><?= __clear($durations[$value["duration"] - 1]["name"]); ?></td>
-                <td><?= __clear($value["comment"]); ?></td>
                 <td><?= __clear($statuses[$value["status"] - 1]["name"]); ?></td>
               </tr>
               <?php } ?>
