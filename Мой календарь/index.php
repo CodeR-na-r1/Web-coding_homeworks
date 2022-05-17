@@ -45,7 +45,6 @@ if ($_GET)  // Обработка запроса на фильтрацию за�
   
   $data = DATABASE::exec($query);
   $data_relevance = true;
-  echo $query;
 }
 
 if (!$data_relevance)  // Получение данных из БД
@@ -70,7 +69,7 @@ if (!$data_relevance)  // Получение данных из БД
       <div class="task_cont">
         <h3 class="task_cont_header">Новая задача</h3>
         <div class="form_cont">
-          <form method="POST" action="">
+          <form method="POST" action="" class="form_cont_form">
             <div class="form_cont_field">
               <label class="form_cont_label_header">Тема:</label>
               <input class="form_cont_input_item" type="text" name="topic" value="<?= __clear($_POST['topic'] ?? '') ?>">
@@ -144,7 +143,7 @@ if (!$data_relevance)  // Получение данных из БД
               <?php foreach ($data as $key => $value) { ?>
               <tr>
                 <td><?= __clear($types[$value["type"] - 1]["name"]); ?></td>
-                <td><?= __clear($value["topic"]); ?></td>
+                <td class="list_cont_tasks_td_taskName"><?= __clear($value["topic"]); ?></td>
                 <td><?= __clear($value["comment"]); ?></td>
                 <td><?= __clear($value["place"]); ?></td>
                 <td><?= __clear($value["date"] . " " . $value["time"]); ?></td>

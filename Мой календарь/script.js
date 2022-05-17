@@ -1,3 +1,5 @@
+// ----------- Создание запросов на фильтрацию данных (записей) -----------
+
 let source_href = window.location.href.split('?')[0];
 let old_params = window.location.href.split('?').length > 1 ? window.location.href.split('?')[1] : '';
 
@@ -6,7 +8,6 @@ let filter_day_task = old_params.split('day=').length > 1 ? old_params.split('da
 let filter_date_task = old_params.split('date=').length > 1 ? old_params.split('date=')[1].split('&')[0]: null;
 
 let elements = document.getElementsByClassName("element_for_filter");
-
 for (let index = 0; index < elements.length; index++)
 {
     if (elements[index].tagName == "SELECT" || elements[index].tagName == "INPUT")
@@ -19,7 +20,8 @@ for (let index = 0; index < elements.length; index++)
     }
 }
 
-function filter_manage(event) {
+function filter_manage(event)
+{
     let params = "?";
 
     if (event.target.tagName == "SELECT")
@@ -44,4 +46,32 @@ function filter_manage(event) {
     window.location.href = source_href + params;
 
     return;
+}
+
+// ----------- Редактирование данных (записей) -----------
+
+elements = document.getElementsByClassName("list_cont_tasks_td_taskName");
+for (let index = 0; index < elements.length; index++)
+{
+    elements[index].addEventListener("click", task_editor_manage);
+}
+
+let previous = null;
+
+function task_editor_manage(event)
+{
+    if (previous) { previous.style.color = ""; }    // Метка цветом текущей редактируемой записи
+    this.style.color = "red";
+
+    document.getElementsByClassName("task_cont_header")[0].innerHTML = "Редактирование задачи";    // Изменяем заголовок
+
+    let row = this.parentNode;    // Строка с нужными данными от задачи
+
+    let form = document.getElementsByClassName("form_cont_form")[0];    // Форма
+    // console.log(form[0]);
+    form[0].value = row.children[1].innerHTML;    // Заполняем поля
+    form[2].value = row.children[3].innerHTML;
+    form[6].value = row.children[2].innerHTML;
+
+    previous = this;
 }
