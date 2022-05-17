@@ -22,7 +22,15 @@ if ($_GET)  // Обработка запроса на фильтрацию за�
 
   if (isset($_GET["day"]))
   {
-    # code...
+    $query =  Database::add_condition($query, "date = '" . $_GET["day"] . "'");
+  }
+  else if (isset($_GET["date"]))
+  {
+    if ($_GET["date"] == "all") {}
+    else if ($_GET["date"] == "this_week") { $query =  Database::add_condition($query, "date_format(date, '%y-%m-%d') between date_format(now() - interval (DAYOFWEEK(now()) -2) day, '%y-%m-%d') and date_format(now() + interval (7 - (DAYOFWEEK(now()) -1)) day, '%y-%m-%d')"); }
+    else if ($_GET["date"] == "next_week") { $query =  Database::add_condition($query, "date_format(date, '%y-%m-%d') between date_format(now() - interval (DAYOFWEEK(now()) -2) day + interval 7 day, '%y-%m-%d') and date_format(now() + interval (7 - (DAYOFWEEK(now()) -1)) day + interval 7 day, '%y-%m-%d')"); }
+    else if ($_GET["date"] == "this_month") { $query =  Database::add_condition($query, "date_format(date, '%y-%m-%d') between date_format(now() - interval (DAY(now()) - 1) day, '%y-%m-%d') and date_format(LAST_DAY(now()), '%y-%m-%d')"); }
+    else if ($_GET["date"] == "next_month") { $query =  Database::add_condition($query, "date_format(date, '%y-%m-%d') between date_format(now() + interval 1 month - interval (DAY(now()) - 1) day, '%y-%m-%d') and date_format(LAST_DAY(now() + interval 1 month), '%y-%m-%d')"); }
   }
 
   if (isset($_GET["status"]))
