@@ -85,18 +85,15 @@ if ($data == null || !$data_relevance)  // Получение данных из 
         <h3 class="list_cont_header">Список задач</h3>
         <div class="list_cont_menu">
           <span>Фильтры: </span>
-          <select class="element_for_filter" name="sort_by_progress">
-            <option value="nothing" selected>Все задачи</option>
-            <option value="now">Текущие задачи</option>
-            <option value="over">Просроченные задачи</option>
-            <option value="completed">Выполненные задачи</option>
+          <select class="element_for_filter" name="sort_by_status">
+            <?php foreach ($status_filter as $key => $value) { ?>
+            <?php echo "<option value='" . $key . "'" . (strcmp(($_GET['status'] ?? ''), $key) ? '' : ' selected') . ">" . $value . "</option>"; ?>
+            <?php } ?>
           </select>
-          <input class="element_for_filter" type="date" class="sort_by_date">
-          <span class="element_for_filter" value="all">Все</span>
-          <span class="element_for_filter" value="this_week">Эта неделя</span>
-          <span class="element_for_filter" value="next_week">След. неделя</span>
-          <span class="element_for_filter" value="this_month">Этот месяц</span>
-          <span class="element_for_filter" value="next_month">След. месяц</span>
+          <input class="element_for_filter sort_by_date" type="date" value="<?php echo $_GET['day'] ?? '' ?>">
+          <?php foreach ($date_filter as $key => $value) { ?>
+          <?php echo "<span class='element_for_filter' value='" . $key . "'" . (strcmp(($_GET['date'] ?? ''), $key) ? '' : ' style="color: #153e9b; text-decoration: none;"') . ">" . $value . "</span>"; ?>
+          <?php } ?>
         </div>
         <div class="list_cont_tasks">
           <table>
