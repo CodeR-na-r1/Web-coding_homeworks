@@ -31,6 +31,17 @@ class Database
     return $query->fetchAll();
   }
 
+  static public function add_condition($sql_query, $sql_cond)
+  {
+    $more_one = false;
+    if (strpos($sql_query, "WHERE")) { $more_one = true; } else { $sql_query .= " WHERE "; }
+    if ($more_one) { $sql_query .= " AND "; }
+
+    $sql_query .= $sql_cond;
+
+    return $sql_query;
+  }
+
 }
 
 ?>

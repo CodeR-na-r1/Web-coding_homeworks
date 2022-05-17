@@ -16,7 +16,31 @@ if ($_POST) // Обработка запроса на добавление но�
   }
 }
 
-if ($data == null || !$data_relevance)  // Получение данных из БД
+if ($_GET)  // Обработка запроса на фильтрацию записей
+{
+  $query = "SELECT * FROM `tasks`";
+
+  if (isset($_GET["day"]))
+  {
+    # code...
+  }
+
+  if (isset($_GET["status"]))
+  {
+    if ($_GET["status"] == "now") { $query = Database::add_condition($query, "status = '1'"); }
+    else if ($_GET["status"] == "completed") { $query = Database::add_condition($query, "status = '2'"); }
+    else if ($_GET["status"] == "over") {
+      $query = Database::add_condition($query, "status = '1' AND (DATEDIFF(date, date_format(now(), '%y-%m-%d')) < 0 OR " .
+        "(DATEDIFF(date, date_format(now(), '%y-%m-%d')) = 0 AND TIMEDIFF(time, date_format(now(), '%H:%i')) < 0));");
+    }
+  }
+  
+  $data = DATABASE::exec($query);
+  $data_relevance = true;
+  echo $query;
+}
+
+if (!$data_relevance)  // Получение данных из БД
 {
   $data = Form_interaction::load_all();
   $data_relevance = true;

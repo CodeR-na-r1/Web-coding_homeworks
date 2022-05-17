@@ -47,7 +47,6 @@ CREATE TABLE `statuses` (
 
 INSERT INTO `statuses` (`name`) VALUES
 ('Текущая задача'),
-('Просроченная задача'),
 ('Выполненная задача');
 
 CREATE TABLE `tasks` (

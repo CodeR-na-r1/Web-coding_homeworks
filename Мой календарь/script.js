@@ -29,10 +29,12 @@ function filter_manage(event) {
     else if (event.target.tagName == "INPUT")
     {
         filter_day_task = event.target.value;
+        filter_date_task = null;
     }
     else if (event.target.tagName == "SPAN")
     {
         filter_date_task = event.target.attributes.value.value;
+        filter_day_task = null;
     }
 
     if (filter_status_task != null) { params += "status=" + filter_status_task + "&"; }
