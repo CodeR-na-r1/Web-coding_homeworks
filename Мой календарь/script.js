@@ -120,6 +120,9 @@ function task_editor_manage(event)
 
         form[7].before(status_element);
     }
+
+
+    if (row.children[6].innerHTML.includes("Выполненная")) { form[7].setAttribute("checked", "checked"); }
     
     let task_id = row.children[0].getAttribute("data__id");   // Достаём id редактируемой записи
     form[9].value = task_id;   // Сохраняем в элемент с данными об id записи
@@ -131,5 +134,3 @@ function __exit()
 {
     window.location.href = window.location.href;
 }
-
-// let elem

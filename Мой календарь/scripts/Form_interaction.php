@@ -39,7 +39,7 @@ class Form_interaction {
       }
       else
       {
-        $this->print_errors();
+        //$this->print_errors();
         return false;
       }
    }
@@ -60,7 +60,7 @@ class Form_interaction {
     }
     else
     {
-       $this->print_errors();
+       //$this->print_errors();
        return false;
     }
    }
@@ -93,6 +93,20 @@ class Form_interaction {
        echo '<li>' . $error . '</li>';
      }
      echo '</ul>';
+   }
+
+   public function get_errors() : string
+   {
+     $data = '<ul style="color:red;">';
+
+     foreach ($this->data_errors as $error) 
+     {
+       $data .= '<li>' . $error . '</li>';
+     }
+
+     $data .= '</ul>';
+
+     return $data;
    }
 
    public static function load_all()

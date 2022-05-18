@@ -12,7 +12,11 @@ if ($_POST) // Обработка запроса на добавление но�
 
     if ($My_form->save())
     {
-      echo "Добавлено";
+      $message = "<div style='color:green;'>Задача добавлена!</div>";
+    }
+    else
+    {
+      $message = $My_form->get_errors();
     }
   }
   else // иначе
@@ -21,7 +25,11 @@ if ($_POST) // Обработка запроса на добавление но�
 
     if ($My_form->update($_POST["task_id"], (isset($_POST["status"]) ? 2 : 1)))
     {
-      echo "Обновлено";
+      $message = "<div style='color:green;'>Данные задачи обновлены!</div>";
+    }
+    else
+    {
+      $message = $My_form->get_errors();
     }
   }
 
@@ -78,6 +86,9 @@ if (!$data_relevance)  // Получение данных из БД
     <title>Мой календарь</title>
   </head>
   <body>
+    <div class="messages">
+      <?php if ($message) { echo $message; }?>
+    </div>
     <div class="main_cont">
       <h1 class="main_cont_header">Мой календарь</h1>
       <div class="task_cont">

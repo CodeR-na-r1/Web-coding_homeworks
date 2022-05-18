@@ -12,6 +12,8 @@ $data_relevance = false;
 
 $data = null;
 
+$message = null;
+
 // Коллекции с данными для фильтров
 
 $status_filter = array(
