@@ -95,16 +95,41 @@ function task_editor_manage(event)
 
     form[7].innerHTML = "Сохранить";   // Button
 
-    if (!form[8])   // Проверка на наличие элемента с данными об id редактируемой записи, иначе его создание
+    if (!form[8])   // Проверка на наличие элемента с данными об id редактируемой записи + кнопка отмена, иначе их создание
     {
         let mark_element = document.createElement('input');
         mark_element.type = "hidden";
         mark_element.name = "task_id";
         form.append(mark_element);
+
+        let cancel_button = document.createElement('button');
+        cancel_button.innerHTML = "Отмена";
+        cancel_button.type = "reset";
+        cancel_button.classList += "form_cont_button";
+        cancel_button.style = "margin-left: 1%;";
+        form.append(cancel_button);
+
+        form[9].addEventListener("click", __exit);
+
+        let status_element = document.getElementsByClassName("form_cont_field")[2].cloneNode(true);
+        status_element.children[0].innerHTML = "Задача выполнена: ";
+        status_element.children[1].type = "checkbox";
+        status_element.children[1].value = "";
+        status_element.children[1].name = "status";
+        status_element.children[1].style = "width:auto;";
+
+        form[7].before(status_element);
     }
     
     let task_id = row.children[0].getAttribute("data__id");   // Достаём id редактируемой записи
-    form[8].value = task_id;   // Сохраняем в элемент с данными об id записи
+    form[9].value = task_id;   // Сохраняем в элемент с данными об id записи
     
     previous = this;
 }
+
+function __exit()
+{
+    window.location.href = window.location.href;
+}
+
+// let elem
