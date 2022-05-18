@@ -6,7 +6,6 @@ include_once 'scripts/Form_interaction.php';
 
 if ($_POST) // Обработка запроса на добавление новой записи
 {
-  echo (isset($_POST["status"]) ? 2 : 1);
   if (!isset($_POST["task_id"])) // Если запрос на нередактирование
   {
     $My_form = new Form_interaction($_POST, $types, $durations);
@@ -157,7 +156,7 @@ if (!$data_relevance)  // Получение данных из БД
             <tbody>
               <?php foreach ($data as $key => $value) { ?>
               <tr>
-                <td <?php echo "data__id='" . __clear($value["id"]) . "'"; ?>><?= __clear($types[$value["type"] - 1]["name"]); ?></td>
+                <td <?= __clear("data__id=" . $value["id"]); ?>><?= __clear($types[$value["type"] - 1]["name"]); ?></td>
                 <td class="list_cont_tasks_td_taskName"><?= __clear($value["topic"]); ?></td>
                 <td><?= __clear($value["comment"]); ?></td>
                 <td><?= __clear($value["place"]); ?></td>
