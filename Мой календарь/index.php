@@ -142,7 +142,7 @@ if (!$data_relevance)  // Получение данных из БД
             <tbody>
               <?php foreach ($data as $key => $value) { ?>
               <tr>
-                <td><?= __clear($types[$value["type"] - 1]["name"]); ?></td>
+                <td <?php echo "data__id='" . __clear($value["id"]) . "'"; ?>><?= __clear($types[$value["type"] - 1]["name"]); ?></td>
                 <td class="list_cont_tasks_td_taskName"><?= __clear($value["topic"]); ?></td>
                 <td><?= __clear($value["comment"]); ?></td>
                 <td><?= __clear($value["place"]); ?></td>
