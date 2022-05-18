@@ -44,6 +44,24 @@ class Form_interaction {
       }
    }
 
+   public function update($task_id) : bool
+   {
+     $this->check_errors();
+
+    if ($this->validate())
+    {
+      Database::exec("UPDATE `tasks` SET topic = :topic, type = :type, place = :place, date = :date, time = :time, duration = :duration, comment = :comment, status = 1 WHERE id = " . $task_id . " LIMIT 1;"
+      , $this->data);
+
+      return true;
+    }
+    else
+    {
+       $this->print_errors();
+       return false;
+    }
+   }
+
    private function check_errors() : void
    {
      if (!$this->data[':topic'])

@@ -6,14 +6,29 @@ include_once 'scripts/Form_interaction.php';
 
 if ($_POST) // Обработка запроса на добавление новой записи
 {
-  $My_form = new Form_interaction($_POST, $types, $durations);
-
-  if ($My_form->save())
+  if (!isset($_POST["task_id"])) // Если запрос на нередактирование
   {
-    echo "Добавлено";
-    $_POST = null;
-    $data_relevance = false;
+    $My_form = new Form_interaction($_POST, $types, $durations);
+
+    if ($My_form->save())
+    {
+      echo "Добавлено";
+      $_POST = null;
+      $data_relevance = false;
+    }
   }
+  else // иначе
+  {
+    $My_form = new Form_interaction($_POST, $types, $durations);
+
+    if ($My_form->update($_POST["task_id"]))
+    {
+      echo "Обновлено";
+      $_POST = null;
+      $data_relevance = false;
+    }
+  }
+  
 }
 
 if ($_GET)  // Обработка запроса на фильтрацию записей

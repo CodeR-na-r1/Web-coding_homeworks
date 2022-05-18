@@ -99,6 +99,7 @@ function task_editor_manage(event)
     {
         let mark_element = document.createElement('input');
         mark_element.type = "hidden";
+        mark_element.name = "task_id";
         form.append(mark_element);
     }
     
