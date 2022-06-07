@@ -75,7 +75,7 @@ if (editing_task_id > 0)    // Действия, если при редакти�
     add_fields(form);    // добавляем дополнительные поля + скрытное (с id)
 
     form[9].value = editing_task_id;   // Сохраняем в элемент с данными об id записи
-    form[7].checked = editing_task_status;
+    editing_task_status > 0 ? form[7].setAttribute("checked", "checked") : form[7].removeAttribute("checked");
 
     previous  = td_event_elem;
 }
@@ -157,7 +157,6 @@ function add_fields(form)
         let status_element = document.getElementsByClassName("form_cont_field")[2].cloneNode(true);
         status_element.children[0].innerHTML = "Задача выполнена: ";
         status_element.children[1].type = "checkbox";
-        status_element.children[1].value = "";
         status_element.children[1].name = "status";
         status_element.children[1].style = "width:auto;";
 
