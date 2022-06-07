@@ -9,7 +9,7 @@ class Database
     if (static::$pdo == null)
     {
       $config = include 'config.php';
-      static::$pdo = new PDO("mysql:host=localhost;dbname=calendar_tasks;", "r1", "xxxx");//new PDO(("mysql:host=" . $config['db_host'] . ";dbname=" . $config['db_name'] . ";"), $config['db_user'], $config['db_pass']);
+      static::$pdo = new PDO("mysql:host=127.0.0.1;dbname=task_calendar94;", "task_calendar94", "5jEQRM60");//new PDO(("mysql:host=" . $config['db_host'] . ";dbname=" . $config['db_name'] . ";"), $config['db_user'], $config['db_pass']);
     }
 
     return static::$pdo;
