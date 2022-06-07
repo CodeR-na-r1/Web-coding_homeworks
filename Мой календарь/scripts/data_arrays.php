@@ -14,6 +14,9 @@ $data = null;
 
 $message = null;
 
+$now_editing_task_id = -1;
+$now_editing_task_status = null;
+
 // Коллекции с данными для фильтров
 
 $status_filter = array(

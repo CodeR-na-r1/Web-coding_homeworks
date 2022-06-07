@@ -60,6 +60,26 @@ let form = document.getElementsByClassName("form_cont_form")[0];    // Форм�
 
 let previous = null;
 
+let editing_task_id = document.getElementsByClassName("list_cont_tasks__table")[0].getAttribute('data__now_editing_task_id');
+let editing_task_status = document.getElementsByClassName("list_cont_tasks__table")[0].getAttribute('data__now_editing_task_status');
+
+if (editing_task_id > 0)    // Действия, если при редактировании задачи, отправка прошла с ошибками
+{
+    table = document.getElementsByClassName("list_cont_tasks__table")[0];    // строки, чтобы найти теги <tr> с задачами
+    table_tbody = table.children[1];
+    table_tr = table_tbody.children;
+
+    let td_event_elem = find_row_by_id(table_tr, editing_task_id).children[1];  // td с заголовком здачи
+
+    change_decoration(td_event_elem);    // Меняем заголовки, кнопку и окрас текущей редактируемой задачи
+    add_fields(form);    // добавляем дополнительные поля + скрытное (с id)
+
+    form[9].value = editing_task_id;   // Сохраняем в элемент с данными об id записи
+    form[7].checked = editing_task_status;
+
+    previous  = td_event_elem;
+}
+
 function task_editor_manage(event)
 {
     change_decoration(this);
@@ -89,6 +109,8 @@ function change_decoration(elem)
     elem.style.color = "red";
 
     document.getElementsByClassName("task_cont_header")[0].innerHTML = "Редактирование задачи";    // Изменяем заголовок
+
+    form[7].innerHTML = "Сохранить";   // Button
 }
 
 function change_fields(row)
@@ -114,8 +136,6 @@ function change_fields(row)
     }
 
     form[6].value = row.children[2].innerHTML;   // Описание
-
-    form[7].innerHTML = "Сохранить";   // Button
 }
 
 function add_fields(form)
@@ -147,4 +167,15 @@ function add_fields(form)
 function __exit()
 {
     window.location.href = window.location.href;
+}
+
+function find_row_by_id(rows, find_id)
+{
+    for (let index = 0; index < rows.length; index++)
+    {
+        if (rows[index].children[0].getAttribute("data__id") == find_id)
+        {
+            return rows[index];
+        }
+    }
 }

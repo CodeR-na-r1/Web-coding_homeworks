@@ -34,7 +34,8 @@ if ($_POST) // Обработка запроса на добавление но�
     else
     {
       $message = $My_form->get_errors();
-      $_POST = null;
+      $now_editing_task_id = $_POST["task_id"]; // В случае ошибки запоминаем id неотредактированной задачи (оно будет записано в теге <table> и считано скриптом js)
+      $now_editing_task_status = isset($_POST["status"]) ? 1 : 0; // Также сохраянем значение временного поля со статусом
     }
   }
   
@@ -160,7 +161,7 @@ if (!$data_relevance)  // Получение данных из БД
           <?php } ?>
         </div>
         <div class="list_cont_tasks">
-          <table>
+          <table class="list_cont_tasks__table" <?= "data__now_editing_task_id='" . $now_editing_task_id . "'" ?> <?= "data__now_editing_task_status='" . $now_editing_task_status . "'" ?>  >
             <thead>
               <tr>
                 <th>Тип</th>
