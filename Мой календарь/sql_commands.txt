@@ -1,6 +1,6 @@
 -- mysql -ur1 -hlocalhost -p
 
---  drop database `calendar_tasks`;
+--  drop database if exists `calendar_tasks`;
 
 create database `calendar_tasks`;
 
@@ -52,16 +52,18 @@ INSERT INTO `statuses` (`name`) VALUES
 CREATE TABLE `tasks` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `topic` VARCHAR(255) NOT NULL,
-  `type` INT(10) NOT NULL,
+  `type` INT(10) UNSIGNED NOT NULL,
   `place` VARCHAR(255) NOT NULL,
   `date` VARCHAR(10) NOT NULL,
   `time` VARCHAR(5) NOT NULL,
-  `duration` INT(10) NOT NULL,
+  `duration` INT(10) UNSIGNED NOT NULL,
   `comment` VARCHAR(255) NOT NULL,
-  `status` INT(10) NOT NULL DEFAULT 1,
+  `status` INT(10) UNSIGNED NOT NULL,
   PRIMARY KEY(`id`),
-  INDEX `type` (`type`),
-  INDEX `duration` (`duration`)
+
+  FOREIGN KEY (type) REFERENCES types(id) ON DELETE CASCADE,
+  FOREIGN KEY (duration) REFERENCES durations(id) ON DELETE CASCADE,
+  FOREIGN KEY (status) REFERENCES statuses(id) ON DELETE CASCADE
   );
 
 INSERT INTO `tasks` VALUES 
