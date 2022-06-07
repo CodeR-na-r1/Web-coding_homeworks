@@ -6,6 +6,8 @@ include_once 'scripts/Form_interaction.php';
 
 if ($_POST) // Обработка запроса на добавление новой записи
 {
+  $success = null;
+
   if (!isset($_POST["task_id"])) // Если запрос на нередактирование
   {
     $My_form = new Form_interaction($_POST, $types, $durations);
@@ -13,6 +15,7 @@ if ($_POST) // Обработка запроса на добавление но�
     if ($My_form->save())
     {
       $message = "<div style='color:green;'>Задача добавлена!</div>";
+      $success = true;
     }
     else
     {
@@ -26,16 +29,21 @@ if ($_POST) // Обработка запроса на добавление но�
     if ($My_form->update($_POST["task_id"], (isset($_POST["status"]) ? 2 : 1)))
     {
       $message = "<div style='color:green;'>Данные задачи обновлены!</div>";
+      $success = true;
     }
     else
     {
       $message = $My_form->get_errors();
+      $_POST = null;
     }
   }
-
-  $_POST = null;
-  $data_relevance = false;
   
+  if ($success)
+  {
+    $_POST = null;
+    $data_relevance = false;
+  }
+
 }
 
 if ($_GET)  // Обработка запроса на фильтрацию записей
