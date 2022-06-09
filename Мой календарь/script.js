@@ -178,3 +178,23 @@ function find_row_by_id(rows, find_id)
         }
     }
 }
+
+// ----------- Смена темы (светлая / тёмная) -----------
+
+// Ищем нужные объекты
+let elem = document.getElementsByClassName("main_cont_img")[0]; 
+
+let img_background_names = ["dark_background.jpg", "light_background.jpg"];
+let img_icon_names = ["light_choice_topic.png", "dark_choice_topic.png"];
+let now_topic = 0;
+
+elem.addEventListener("click", change_color_topic);
+
+function change_color_topic(event)
+{
+    document.body.style.backgroundImage = "url('/styles/images/" + img_background_names[now_topic] + "')";
+    elem.src = "/styles/images/" + img_icon_names[now_topic];
+
+    if (now_topic > 0) { now_topic = 0; } else { now_topic += 1; }
+    
+}

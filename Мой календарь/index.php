@@ -101,7 +101,7 @@ if (!$data_relevance)  // Получение данных из БД
     <div class="main_cont">
       <div class="main_cont_header__cont">
       <h1 class="main_cont_header">Мой календарь</h1>
-      <img src="styles/images/choice_topic_light.png" class="main_cont_img" alt="choice_topic">
+      <img src="styles/images/dark_choice_topic.png" class="main_cont_img" alt="choice_topic">
       </div>
       <div class="task_cont">
         <h3 class="task_cont_header">Новая задача</h3>
