@@ -65,9 +65,9 @@ let editing_task_status = document.getElementsByClassName("list_cont_tasks__tabl
 
 if (editing_task_id > 0)    // Действия, если при редактировании задачи, отправка прошла с ошибками
 {
-    table = document.getElementsByClassName("list_cont_tasks__table")[0];    // строки, чтобы найти теги <tr> с задачами
-    table_tbody = table.children[1];
-    table_tr = table_tbody.children;
+    let table = document.getElementsByClassName("list_cont_tasks__table")[0];    // строки, чтобы найти теги <tr> с задачами
+    let table_tbody = table.children[1];
+    let table_tr = table_tbody.children;
 
     let td_event_elem = find_row_by_id(table_tr, editing_task_id).children[1];  // td с заголовком здачи
 
@@ -184,17 +184,62 @@ function find_row_by_id(rows, find_id)
 // Ищем нужные объекты
 let elem = document.getElementsByClassName("main_cont_img")[0]; 
 
+// Массивы с именами нужных ресурсов
 let img_background_names = ["dark_background.jpg", "light_background.jpg"];
 let img_icon_names = ["light_choice_topic.png", "dark_choice_topic.png"];
 let now_topic = 0;
+
+// Переменные  с нужнымии параметрами
+let text_colors = ["#AAAAAA", "#000000"];
+let field_colors = ["#212121", "#FFFFFF"];
+let border_colors = ["#63759B", "#000000"];
+let link_colors = ["#8b00ff", "#0000FF"];
 
 elem.addEventListener("click", change_color_topic);
 
 function change_color_topic(event)
 {
-    document.body.style.backgroundImage = "url('/styles/images/" + img_background_names[now_topic] + "')";
-    elem.src = "/styles/images/" + img_icon_names[now_topic];
+    // ----- Обновление стилей элементов -----
 
+    // Обновление фона и иконки темы
+    document.body.style.backgroundImage = "url('/styles/images/" + img_background_names[now_topic] + "')";    // Фон
+    elem.src = "/styles/images/" + img_icon_names[now_topic];    // иконка
+
+    // Обновление цвета текста
+    document.body.style.color = text_colors[now_topic];    // Цвет текста документа
+    for (let index = 0; index < form.length; index++)    //  Цвет текста формы
+    {
+        form[index].style.color = text_colors[now_topic];
+    }
+
+    let filter_elements = document.getElementsByClassName("element_for_filter");
+    for (let index = 0; index < filter_elements.length; index++)    //  Цвет текста фильтров
+    {
+        filter_elements[index].style.color = text_colors[now_topic];
+    }
+
+    // Обновление цвета обводки таблицы с задачами и контейнеров
+    document.getElementsByClassName("task_cont")[0].style.borderColor = border_colors[now_topic];   //  Цвет обводки контейнера с формой
+    document.getElementsByClassName("list_cont")[0].style.borderColor = border_colors[now_topic];   //  Цвет обводки контейнера со списком залач
+
+    let table_childs = document.getElementsByClassName("list_cont_tasks__table")[0].children;
+    for (let index = 0; index < table_childs.length; index++)    //  Цвет обводки элементов таблицы с задачами
+    {
+        for (let j = 0; j < table_childs[index].children.length; j++)
+        {
+            table_childs[index].children[j].style.borderColor = border_colors[now_topic];
+        }
+    }
+
+    // Обновление цвета ссылок (выбор заметки на редактирование)
+    let td_task_name_elements = document.getElementsByClassName("list_cont_tasks_td_taskName");
+    for (let index = 0; index < td_task_name_elements.length; index++)    //  Цвет текста фильтров
+    {
+        td_task_name_elements[index].style.color = link_colors[now_topic];
+    }
+
+    // Обновление счётчика темы
     if (now_topic > 0) { now_topic = 0; } else { now_topic += 1; }
     
+    return;
 }
