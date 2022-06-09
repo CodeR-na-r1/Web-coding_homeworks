@@ -5,7 +5,8 @@ let old_params = window.location.href.split('?').length > 1 ? window.location.hr
 
 let filter_status_task = old_params.split('status=').length > 1 ? old_params.split('status=')[1].split('&')[0] : null;
 let filter_day_task = old_params.split('day=').length > 1 ? old_params.split('day=')[1].split('&')[0] : null;
-let filter_date_task = old_params.split('date=').length > 1 ? old_params.split('date=')[1].split('&')[0]: null;
+let filter_date_task = old_params.split('date=').length > 1 ? old_params.split('date=')[1].split('&')[0] : null;
+let dark_theme = old_params.split('dark=').length > 1 ? old_params.split('dark=')[1].split('&')[0] : null;
 
 let elements = document.getElementsByClassName("element_for_filter");
 for (let index = 0; index < elements.length; index++)
@@ -22,8 +23,6 @@ for (let index = 0; index < elements.length; index++)
 
 function filter_manage(event)
 {
-    let params = "?";
-
     if (event.target.tagName == "SELECT")
     {
         filter_status_task = event.target.value;
@@ -39,11 +38,7 @@ function filter_manage(event)
         filter_day_task = null;
     }
 
-    if (filter_status_task != null) { params += "status=" + filter_status_task + "&"; }
-    if (filter_day_task != null) {params += "day=" + filter_day_task + "&";}
-    if (filter_date_task != null) {params += "date=" + filter_date_task + "&";}
-
-    window.location.href = source_href + params;
+    window.location.href = source_href + join_params();
 
     return;
 }
@@ -182,7 +177,7 @@ function find_row_by_id(rows, find_id)
 // ----------- Смена темы (светлая / тёмная) -----------
 
 // Ищем нужные объекты
-let elem = document.getElementsByClassName("main_cont_img")[0]; 
+let theme_img_elem = document.getElementsByClassName("main_cont_img")[0];
 
 // Массивы с именами нужных ресурсов
 let img_background_names = ["dark_background.jpg", "light_background.jpg"];
@@ -195,15 +190,29 @@ let field_colors = ["#212121", "#FFFFFF"];
 let border_colors = ["#63759B", "#000000"];
 let link_colors = ["#8b00ff", "#0000FF"];
 
-elem.addEventListener("click", change_color_topic);
+theme_img_elem.addEventListener("click", change_color_topic);
+
+if (dark_theme != null && dark_theme != now_topic)
+{
+    change_color_theme();
+}
 
 function change_color_topic(event)
+{
+    if (now_topic == 1) { dark_theme = 0; } else { dark_theme = 1; }
+
+    window.location.href = source_href + join_params();
+
+    return;
+}
+
+function change_color_theme()
 {
     // ----- Обновление стилей элементов -----
 
     // Обновление фона и иконки темы
     document.body.style.backgroundImage = "url('/styles/images/" + img_background_names[now_topic] + "')";    // Фон
-    elem.src = "/styles/images/" + img_icon_names[now_topic];    // иконка
+    theme_img_elem.src = "/styles/images/" + img_icon_names[now_topic];    // иконка
 
     // Обновление цвета текста
     document.body.style.color = text_colors[now_topic];    // Цвет текста документа
@@ -240,6 +249,18 @@ function change_color_topic(event)
 
     // Обновление счётчика темы
     if (now_topic > 0) { now_topic = 0; } else { now_topic += 1; }
-    
+
     return;
+}
+
+function join_params()
+{
+    let params = '?';
+
+    if (filter_status_task != null) { params += "status=" + filter_status_task + "&"; }
+    if (filter_day_task != null) {params += "day=" + filter_day_task + "&";}
+    if (filter_date_task != null) {params += "date=" + filter_date_task + "&";}
+    if (dark_theme != null) {params += "dark=" + dark_theme + "&";}
+
+    return params;
 }
