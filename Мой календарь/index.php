@@ -99,14 +99,17 @@ if (!$data_relevance)  // Получение данных из БД
       <?php if ($message) { echo $message; }?>
     </div>
     <div class="main_cont">
+      <div class="main_cont_header__cont">
       <h1 class="main_cont_header">Мой календарь</h1>
+      <img src="styles/images/choice_topic_light.png" class="main_cont_img" alt="choice_topic">
+      </div>
       <div class="task_cont">
         <h3 class="task_cont_header">Новая задача</h3>
         <div class="form_cont">
           <form method="POST" action="" class="form_cont_form">
             <div class="form_cont_field">
               <label class="form_cont_label_header">Тема:</label>
-              <input class="form_cont_input_item" type="text" name="topic" value="<?= __clear($_POST['topic'] ?? '') ?>">
+              <input class="form_cont_input_item" type="text" name="topic" placeholder="Введите тему задачи" value="<?= __clear($_POST['topic'] ?? '') ?>">
             </div>
             <div class="form_cont_field">
               <label class="form_cont_label_header">Тип:</label>
@@ -120,7 +123,7 @@ if (!$data_relevance)  // Получение данных из БД
             </div>
             <div class="form_cont_field">
               <label class="form_cont_label_header">Место:</label>
-              <input class="form_cont_input_item" type="text" name="place" value="<?= __clear($_POST['place'] ?? '') ?>">
+              <input class="form_cont_input_item" type="text" name="place" placeholder="Введите место задания" value="<?= __clear($_POST['place'] ?? '') ?>">
             </div>
             <div class="form_cont_field">
               <label class="form_cont_label_header">Дата и время:</label>
