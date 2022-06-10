@@ -38,23 +38,23 @@ class Form_interaction {
       if ($this->validate())
       {
         $this->contents = '';
-        $this->contents .= uniqid() . $this->separator; // id
-  			$this->contents .= $this->name . $this->separator; // name
-  			$this->contents .= $this->family . $this->separator; // family
-  			$this->contents .= $this->email . $this->separator; // email
-  			$this->contents .= $this->phone . $this->separator; // phone
-  			$this->contents .= $this->topic . $this->separator; // topic
-  			$this->contents .= $this->payment . $this->separator; // payment
-        $this->contents .= time() . $this->separator; // date
-  			$this->contents .= ($this->confirm ? '1' : '0') . $this->separator; // confirm
-  			$this->contents .= $_SERVER['REMOTE_ADDR'] . $this->separator; // client ip
+        $this->contents .= uniqid() . self::$separator; // id
+  			$this->contents .= $this->name . self::$separator; // name
+  			$this->contents .= $this->family . self::$separator; // family
+  			$this->contents .= $this->email . self::$separator; // email
+  			$this->contents .= $this->phone . self::$separator; // phone
+  			$this->contents .= $this->topic . self::$separator; // topic
+  			$this->contents .= $this->payment . self::$separator; // payment
+        $this->contents .= time() . self::$separator; // date
+  			$this->contents .= ($this->confirm ? '1' : '0') . self::$separator; // confirm
+  			$this->contents .= $_SERVER['REMOTE_ADDR'] . self::$separator; // client ip
   			$this->contents .= '1' . "\n"; // actual (no deleted)
-
-        if (!file_exists($this->name_data_folder)) {
-  				mkdir($this->name_data_folder, 0777);   // имя и права в 8-ой сист. счисления
+echo $this->contents;
+        if (!file_exists(self::$name_data_folder)) {
+  				mkdir(self::$name_data_folder, 0777);   // имя и права в 8-ой сист. счисления
   			}
 
-  			file_put_contents($this->name_data_folder . '/' . $this->filename, $this->contents, FILE_APPEND | LOCK_EX);
+  			file_put_contents(self::$name_data_folder . '/' . self::$filename, $this->contents, FILE_APPEND | LOCK_EX);
 
         return true;
       }
@@ -109,11 +109,11 @@ class Form_interaction {
 
    public static function save_all(string $data) : int
    {
-     return file_put_contents(Form_interaction::$name_data_folder . '/' . Form_interaction::$filename, $data);
+     return file_put_contents(self::$name_data_folder . '/' . self::$filename, $data);
    }
 
    public static function load_all() : string
    {
-     return file_get_contents(Form_interaction::$name_data_folder . '/' . Form_interaction::$filename);
+     return file_get_contents(self::$name_data_folder . '/' . self::$filename);
    }
 }
