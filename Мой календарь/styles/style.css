@@ -1,9 +1,20 @@
-body {
+@font-face
+{
+    font-family: "Juza";
+    src: url("fonts/Juza-Bold.ttf");
+    font-display: fallback;
+}
+
+body
+{
     background-image: url("/styles/images/light_background.jpg");
+    font-family: "Juza";
     font-size: 14px;
 }
 
-input, select, textarea {
+input, select, textarea
+{
+    font-family: "Juza";
     font-size: 13px;
 }
 
@@ -15,7 +26,8 @@ input, select, textarea {
     width: 70%;
 }
 
-.main_cont_header__cont{
+.main_cont_header__cont
+{
     display: flex;
     align-items: center;
 }
